@@ -39,19 +39,33 @@ let count = 0 ;
 const addOne = () => {
 count++;
   console.log("one added....",count);
+  renderCounterApp();
   
    }
    const subtractOne = () => {
      count--
   console.log("one subtacted....",count);
+  renderCounterApp();
   
    }
    const reset = () => {
      count = 0;
-  console.log("value reset.....",count)
+  console.log("value reset.....",count);
+  renderCounterApp();
    }
 
-let counter = (
+
+
+
+
+
+//1.
+//ReactDom.render(template,document.getElementById('app'));
+
+//2.
+
+const renderCounterApp = () => {
+  let counter = (
   <div>
   <h1> Count : {count} </h1>
   <button onClick={addOne}> +1</button>   &nbsp; &nbsp;&nbsp;&nbsp;
@@ -61,13 +75,9 @@ let counter = (
   <button
    onClick={reset}>Reset</button>   
   </div>
-)
-
-
-
-
-//1.
-//ReactDom.render(template,document.getElementById('app'));
-
-//2.
+);
 ReactDom.render(counter,document.getElementById('app'))
+}
+
+renderCounterApp()
+
