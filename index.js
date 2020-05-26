@@ -2,82 +2,57 @@
  import React, { Component } from 'react';
  import ReactDom , { Component } from 'react-dom';
 
-
-
-// 1. CONDITIONAL RENDERING IN JSX
-const getFirstname = (user_details) => user_details.name.split(' ')[0];
-
-let user = {
-  name : 'Abhijit Som',
-  age : 20,
-  city : 'Ranchi city'
+const app  =  {
+  title : 'Indecision App',
+  subTitle : 'There is no elevator to success, you have to take the stairs',
+  options :  []
 }
-const template =  
-
-(
-<div>
-<h1> Hey {getFirstname(user)} </h1> 
-<p>your current age is : {user.age>=18 ? user.age : 'Not 18'}</p>
-
-{(user && user.city) && (<h2>You are from : {user.city}</h2>)}
-</div>
-);
-
-// 2. SOME ES6 FEATURE -  ARROW FUNCTION AND MAP FUNCTION
-let resultArray;
-     var multiplier = {
-numbers : [3,9,7,8],
-multiplyBy : 4,
-multiply () {
- return this.numbers.map((num) => this.multiplyBy * num );
+const removeAll = () => { 
+  app.options.length =  0;
+  renderIndecisionApp();
 }
+const onFormSubmit = (e) => {
+  e.preventDefault();
+  const option = e.target.elements.option.value;
+  if(option){
+    app.options.push(option);
+    renderIndecisionApp();
+    e.target.elements.option.value = '';
+  }
 }
-console.log(multiplier.multiply());
 
-//3. EVENTS AND ATTRIBUTES;
-let count = 0 ;
-const addOne = () => {
-count++;
-  console.log("one added....",count);
-  renderCounterApp();
-  
-   }
-   const subtractOne = () => {
-     count--
-  console.log("one subtacted....",count);
-  renderCounterApp();
-  
-   }
-   const reset = () => {
-     count = 0;
-  console.log("value reset.....",count);
-  renderCounterApp();
-   }
+const chooseFromOptions = () =>{
+  const optionIndex = Math.floor(Math.random()*app.options.length);
+  alert(app.options[optionIndex])
+}
 
 
-
-
-
-
-//1.
-//ReactDom.render(template,document.getElementById('app'));
-
-//2.
-
-const renderCounterApp = () => {
-  let counter = (
+const renderIndecisionApp = () => {
+  let template = (
   <div>
-  <h1> Count : {count} </h1>
-  <button onClick={addOne}> +1</button>   &nbsp; &nbsp;&nbsp;&nbsp;
-  <button
-   onClick={subtractOne}> -1</button>   
-   &nbsp; &nbsp;&nbsp;&nbsp;
-  <button
-   onClick={reset}>Reset</button>   
+  <h1>{app.title} </h1>
+  <p>{app.subTitle}</p>
+  <button  onClick= {chooseFromOptions}>What should I do ? </button>
+  <ol>
+{
+  app.options.map((option) => {
+return (<li key={option}>{option}</li>)
+  })
+}
+
+  </ol>
+
+
+
+  <form onSubmit={onFormSubmit}>
+  <input type="text" name="option" />
+  <button> Add Option</button> &nbsp; &nbsp; &nbsp; &nbsp;
+  <button onClick={removeAll}> Remove All</button> 
+  </form>
   </div>
 );
-ReactDom.render(counter,document.getElementById('app'))
+ReactDom.render(template,document.getElementById('app'))
 }
 
-renderCounterApp()
+renderIndecisionApp()
 
