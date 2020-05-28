@@ -1,58 +1,17 @@
-
- import React, { Component } from 'react';
- import ReactDom , { Component } from 'react-dom';
-
-const app  =  {
-  title : 'Indecision App',
-  subTitle : 'There is no elevator to success, you have to take the stairs',
-  options :  []
+class Person {
+constructor (name,age=0) {
+  this.name =  name;
+  this.age =  age;
 }
-const removeAll = () => { 
-  app.options.length =  0;
-  renderIndecisionApp();
+getGreetings () { 
+  return `Hi ${this.name} !!! How are you?`
 }
-const onFormSubmit = (e) => {
-  e.preventDefault();
-  const option = e.target.elements.option.value;
-  if(option){
-    app.options.push(option);
-    renderIndecisionApp();
-    e.target.elements.option.value = '';
-  }
+getDescription () { 
+  return `${this.name} is ${this.age}  years old !!!`
+}
 }
 
-const chooseFromOptions = () =>{
-  const optionIndex = Math.floor(Math.random()*app.options.length);
-  alert(app.options[optionIndex])
-}
-
-
-const renderIndecisionApp = () => {
-  let template = (
-  <div>
-  <h1>{app.title} </h1>
-  <p>{app.subTitle}</p>
-  <button  onClick= {chooseFromOptions}>What should I do ? </button>
-  <ol>
-{
-  app.options.map((option) => {
-return (<li key={option}>{option}</li>)
-  })
-}
-
-  </ol>
-
-
-
-  <form onSubmit={onFormSubmit}>
-  <input type="text" name="option" />
-  <button> Add Option</button> &nbsp; &nbsp; &nbsp; &nbsp;
-  <button onClick={removeAll}> Remove All</button> 
-  </form>
-  </div>
-);
-ReactDom.render(template,document.getElementById('app'))
-}
-
-renderIndecisionApp()
-
+const me  = new Person('Abhijit' , 25);
+console.log(me.getGreetings(),me.getDescription());
+const she  = new Person('Neha' );
+console.log(she.getGreetings(), she.getDescription());
